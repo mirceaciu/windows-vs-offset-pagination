@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Using: {{ orm_type }}</h1>
+    <h3>Results for {{ env_quantity }} entries per table:</h3>
+
+    {% for page in data %}
+        <h4>Page {{ page }}:</h4>
+        {% for item in data[page] %}
+            <p> {{ item }} </p>
+        {% endfor %}
+    {% endfor %}
+</body>
+</html>

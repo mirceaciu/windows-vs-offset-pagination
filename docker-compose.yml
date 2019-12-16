@@ -1,0 +1,32 @@
+version: '3'
+
+volumes:
+  postgres_data_dir: {}
+
+services:
+  flask:
+    build:
+      dockerfile: compose/flask/Dockerfile
+      context: .
+    ports:
+      - 5000:5000
+    environment:
+      - DATABASE_URL=postgres+psycopg2://admin:admin@database:5432/myarticles
+      - TEST_QUANTITY=10000
+      - USE_SQLALCHEMY_CORE=false
+    depends_on:
+      - database
+
+  database:
+    build:
+      dockerfile: compose/postgres/Dockerfile
+      context: .
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=myarticles
+    volumes:
+      - postgres_data_dir:/var/lib/postgresql/data
+    hostname: database
